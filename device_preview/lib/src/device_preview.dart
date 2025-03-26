@@ -60,6 +60,7 @@ class DevicePreview extends StatefulWidget {
     this.storage,
     this.enabled = true,
     this.backgroundColor,
+    this.onThemeSwitched,
   }) : super(key: key);
 
   /// If not [enabled], the [child] is used directly.
@@ -94,6 +95,8 @@ class DevicePreview extends StatefulWidget {
 
   /// The available locales.
   final List<Locale>? availableLocales;
+
+  final VoidCallback? onThemeSwitched;
 
   /// The storage used to persist preferences.
   ///
@@ -380,6 +383,13 @@ class _DevicePreviewState extends State<DevicePreview> {
     return screenshot;
   }
 
+  /// Method to trigger the `onThemeSwitched` callback.
+  void _triggerThemeSwitchedCallback() {
+    if (widget.onThemeSwitched != null) {
+      widget.onThemeSwitched!();
+    }
+  }
+
   @override
   void initState() {
     _onScreenshot = StreamController<DeviceScreenshot>.broadcast();
@@ -421,6 +431,11 @@ class _DevicePreviewState extends State<DevicePreview> {
     final isDarkMode = context.select(
       (DevicePreviewStore store) => store.data.isDarkMode,
     );
+
+    // Trigger the callback when the theme is switched
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _triggerThemeSwitchedCallback();
+    });
 
     return Container(
       color: widget.backgroundColor ?? theme.canvasColor,

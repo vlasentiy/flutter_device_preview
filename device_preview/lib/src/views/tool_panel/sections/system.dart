@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:device_preview/src/state/store.dart';
 import 'package:device_preview/src/views/tool_panel/sections/subsections/locale.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,16 @@ class SystemSection extends StatelessWidget {
     return ToolPanelSection(
       title: 'System',
       children: [
+        ListTile(
+          title: const Text('switch theme'),
+          subtitle: const Text('vls'),
+          onTap: () {
+            // Trigger the onThemeSwitched callback
+            final devicePreview =
+                context.findAncestorWidgetOfExactType<DevicePreview>();
+            devicePreview?.onThemeSwitched?.call();
+          },
+        ),
         if (locale)
           ListTile(
             key: const Key('locale'),
