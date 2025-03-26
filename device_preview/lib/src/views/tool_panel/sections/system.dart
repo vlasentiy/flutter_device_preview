@@ -52,7 +52,7 @@ class SystemSection extends StatelessWidget {
             // Trigger the onThemeSwitched callback
             final devicePreview =
                 context.findAncestorWidgetOfExactType<DevicePreview>();
-            devicePreview?.onThemeSwitched?.call();
+            devicePreview?.onDarkThemeToggle?.call(isDarkMode);
           },
         ),
         if (locale)
@@ -91,6 +91,10 @@ class SystemSection extends StatelessWidget {
             onTap: () {
               final state = context.read<DevicePreviewStore>();
               state.toggleDarkMode();
+
+              final devicePreview =
+                  context.findAncestorWidgetOfExactType<DevicePreview>();
+              devicePreview?.onDarkThemeToggle?.call(isDarkMode);
             },
           ),
       ],
