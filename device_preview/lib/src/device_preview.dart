@@ -61,6 +61,7 @@ class DevicePreview extends StatefulWidget {
     this.enabled = true,
     this.backgroundColor,
     this.onDarkThemeToggle,
+    this.onChangeLanguageToggle,
   }) : super(key: key);
 
   /// If not [enabled], the [child] is used directly.
@@ -97,6 +98,7 @@ class DevicePreview extends StatefulWidget {
   final List<Locale>? availableLocales;
 
   final void Function(bool)? onDarkThemeToggle;
+  final void Function(String)? onChangeLanguageToggle;
 
   /// The storage used to persist preferences.
   ///
@@ -383,9 +385,15 @@ class _DevicePreviewState extends State<DevicePreview> {
     return screenshot;
   }
 
-  void _handleThemeToggle(bool isDarkMode) {
+  void _handleDarkThemeToggle(bool isDarkMode) {
     if (widget.onDarkThemeToggle != null) {
       widget.onDarkThemeToggle!(isDarkMode);
+    }
+  }
+
+  void _handleLanguageChange(String languageCode) {
+    if (widget.onChangeLanguageToggle != null) {
+      widget.onChangeLanguageToggle!(languageCode);
     }
   }
 

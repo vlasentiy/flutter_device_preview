@@ -1,6 +1,5 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:device_preview/src/state/store.dart';
-import 'package:device_preview/src/views/tool_panel/sections/subsections/locale.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,39 +44,27 @@ class SystemSection extends StatelessWidget {
     return ToolPanelSection(
       title: 'System',
       children: [
-        ListTile(
-          title: const Text('switch theme'),
-          subtitle: const Text('vls'),
-          onTap: () {
-            // Trigger the onThemeSwitched callback
-            final devicePreview =
-                context.findAncestorWidgetOfExactType<DevicePreview>();
-            devicePreview?.onDarkThemeToggle?.call(isDarkMode);
-          },
-        ),
         if (locale)
           ListTile(
             key: const Key('locale'),
             title: const Text('Locale'),
             subtitle: Text(selectedLocale.name),
-            trailing: const Row(
+            trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.language),
-                Icon(Icons.chevron_right_rounded),
+                Text(
+                  ((selectedLocale.code == 'en') ? '🇬🇧' : '🇺🇦'),
+                  style: const TextStyle(fontSize: 36),
+                )
               ],
             ),
             onTap: () {
-              final theme = Theme.of(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Theme(
-                    data: theme,
-                    child: const LocalePicker(),
-                  ),
-                ),
-              );
+              final newLocaleCode = selectedLocale.code == 'en' ? 'uk' : 'en';
+              final store = context.read<DevicePreviewStore>();
+              store.data = store.data.copyWith(locale: newLocaleCode);
+              final devicePreview =
+                  context.findAncestorWidgetOfExactType<DevicePreview>();
+              devicePreview?.onChangeLanguageToggle?.call(newLocaleCode);
             },
           ),
         if (theme)
