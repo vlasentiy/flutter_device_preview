@@ -72,8 +72,9 @@ class SystemSection extends StatelessWidget {
             key: const Key('theme'),
             title: const Text('Theme'),
             subtitle: Text(isDarkMode ? 'Dark' : 'Light'),
-            trailing: Icon(
-              isDarkMode ? Icons.brightness_3 : Icons.brightness_high,
+            trailing: Text(
+              (isDarkMode ? '🌚' : '🌝'),
+              style: const TextStyle(fontSize: 36),
             ),
             onTap: () {
               final state = context.read<DevicePreviewStore>();
@@ -81,7 +82,7 @@ class SystemSection extends StatelessWidget {
 
               final devicePreview =
                   context.findAncestorWidgetOfExactType<DevicePreview>();
-              devicePreview?.onDarkThemeToggle?.call(isDarkMode);
+              devicePreview?.onDarkThemeToggle?.call(!isDarkMode);
             },
           ),
       ],
