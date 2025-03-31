@@ -12,7 +12,11 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   provider: ^6.1.2
-  device_frame: ^1.2.0
+  device_frame:
+    git:
+      url: https://github.com/vlasentiy/flutter_device_preview.git
+      path: device_frame
+      ref: dev
   freezed_annotation: ^2.4.1
   json_annotation: ^4.9.0
   shared_preferences: ^2.2.3
@@ -23,5 +27,4 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
   build_runner: ^2.4.0
- # freezed: ^2.5.3
   json_serializable: ^6.8.0

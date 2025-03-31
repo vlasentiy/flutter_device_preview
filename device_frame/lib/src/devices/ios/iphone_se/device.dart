@@ -12,7 +12,7 @@ final info = DeviceInfo(
     DeviceType.phone,
     'iphone-se',
   ),
-  name: 'iPhone SE',
+  name: 'iPhone SE 3rd gen',
   pixelRatio: 2.0,
   frameSize: const Size(891.0, 1790.0),
   screenSize: const Size(375.0, 667.0),
