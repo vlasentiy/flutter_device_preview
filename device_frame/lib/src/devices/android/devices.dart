@@ -150,15 +150,81 @@ class AndroidDevices {
     ),
   );
 
+  DeviceInfo get google_pixel_4 => _pixel4;
+  static final _pixel4 = DeviceInfo.genericPhone(
+    platform: TargetPlatform.android,
+    id: 'pixel4',
+    name: 'Pixel 4',
+    pixelRatio: 3.5,
+    screenSize: const Size(412.0, 869.0),
+    safeAreas: const EdgeInsets.only(
+      left: 0.0,
+      top: 24.0,
+      right: 0.0,
+      bottom: 0.0,
+    ),
+    rotatedSafeAreas: const EdgeInsets.only(
+      left: 0.0,
+      top: 24.0,
+      right: 0.0,
+      bottom: 0.0,
+    ),
+  );
+
+  DeviceInfo get google_pixel_8_pro => _pixel8Pro;
+  static final _pixel8Pro = DeviceInfo.genericPhone(
+    platform: TargetPlatform.android,
+    id: 'pixel8Pro',
+    name: 'Pixel 8 Pro',
+    pixelRatio: 3.0,
+    screenSize: const Size(448.0, 998.0),
+    safeAreas: const EdgeInsets.only(
+      left: 0.0,
+      top: 24.0,
+      right: 0.0,
+      bottom: 0.0,
+    ),
+    rotatedSafeAreas: const EdgeInsets.only(
+      left: 0.0,
+      top: 24.0,
+      right: 0.0,
+      bottom: 0.0,
+    ),
+  );
+
+  DeviceInfo get galaxy_s24_plus => _galaxyS24Plus;
+  static final _galaxyS24Plus = DeviceInfo.genericPhone(
+    platform: TargetPlatform.android,
+    id: 'galaxyS24Plus',
+    name: 'Galaxy S24 Plus',
+    pixelRatio: 2.8125,
+    screenSize: const Size(384.0, 832.0),
+    safeAreas: const EdgeInsets.only(
+      left: 0.0,
+      top: 24.0,
+      right: 0.0,
+      bottom: 0.0,
+    ),
+    rotatedSafeAreas: const EdgeInsets.only(
+      left: 0.0,
+      top: 24.0,
+      right: 0.0,
+      bottom: 0.0,
+    ),
+  );
+
   /// All available devices.
   List<DeviceInfo> get all => [
         //Phones
-        samsungGalaxyA50,
-        samsungGalaxyS20,
-        samsungGalaxyNote20,
-        samsungGalaxyNote20Ultra,
-        onePlus8Pro,
-        sonyXperia1II,
+        google_pixel_8_pro,
+        google_pixel_4,
+        galaxy_s24_plus,
+        //samsungGalaxyA50,
+        // samsungGalaxyS20,
+        // samsungGalaxyNote20,
+        // samsungGalaxyNote20Ultra,
+        // onePlus8Pro,
+        // sonyXperia1II,
         smallPhone,
         mediumPhone,
         bigPhone,
