@@ -32,7 +32,7 @@ class DeviceFrame extends StatelessWidget {
   final Widget screen;
 
   /// All information related to the device.
-  final DeviceInfo? device;
+  final DeviceInfo device;
 
   /// The current frame simulated orientation.
   ///
@@ -64,7 +64,7 @@ class DeviceFrame extends StatelessWidget {
   /// All properties that are not simulated are inherited from the current [context]'s inherited [MediaQuery].
   static MediaQueryData mediaQuery({
     required BuildContext context,
-    required DeviceInfo? info, ////
+    required DeviceInfo? info,
     required Orientation orientation,
   }) {
     final mediaQuery = MediaQuery.of(context);
@@ -90,11 +90,11 @@ class DeviceFrame extends StatelessWidget {
     final density = [
       DeviceType.desktop,
       DeviceType.laptop,
-    ].contains(device?.identifier.type)
+    ].contains(device.identifier.type)
         ? VisualDensity.compact
         : null;
     return Theme.of(context).copyWith(
-      platform: device?.identifier.platform,
+      platform: device.identifier.platform,
       visualDensity: density,
     );
   }
@@ -128,30 +128,30 @@ class DeviceFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final frameSize = device?.frameSize;
-    final bounds = device?.screenPath.getBounds();
+    final frameSize = device.frameSize;
+    final bounds = device.screenPath.getBounds();
     final stack = SizedBox(
-      width: isFrameVisible ? frameSize?.width : bounds?.width,
-      height: isFrameVisible ? frameSize?.height : bounds?.height,
+      width: isFrameVisible ? frameSize.width : bounds.width,
+      height: isFrameVisible ? frameSize.height : bounds.height,
       child: Stack(
         children: [
           if (isFrameVisible)
             Positioned.fill(
               key: const Key('frame'),
               child: CustomPaint(
-                key: ValueKey(device?.identifier),
-                painter: device?.framePainter,
+                key: ValueKey(device.identifier),
+                painter: device.framePainter,
               ),
             ),
           Positioned(
             key: const Key('Screen'),
-            left: isFrameVisible ? bounds?.left : 0,
-            top: isFrameVisible ? bounds?.top : 0,
-            width: bounds?.width,
-            height: bounds?.height,
+            left: isFrameVisible ? bounds.left : 0,
+            top: isFrameVisible ? bounds.top : 0,
+            width: bounds.width,
+            height: bounds.height,
             child: ClipPath(
               clipper: _ScreenClipper(
-                device?.screenPath,
+                device.screenPath,
               ),
               child: FittedBox(
                 child: _screen(context, device),
@@ -162,11 +162,11 @@ class DeviceFrame extends StatelessWidget {
       ),
     );
 
-    final isRotated = device?.isLandscape(orientation);
+    final isRotated = device.isLandscape(orientation);
 
     return FittedBox(
       child: RotatedBox(
-        quarterTurns: isRotated == true ? -1 : 0,
+        quarterTurns: isRotated ? -1 : 0,
         child: stack,
       ),
     );
