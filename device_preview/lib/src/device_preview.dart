@@ -458,7 +458,7 @@ class _DevicePreviewState extends State<DevicePreview> {
           key: _repaintKey,
           child: DeviceFrame(
             device: device,
-            isFrameVisible: isFrameVisible,
+            isFrameVisible: false,
             orientation: orientation,
             screen: VirtualKeyboard(
               isEnabled: isVirtualKeyboardVisible,
