@@ -62,6 +62,7 @@ class DevicePreview extends StatefulWidget {
     this.backgroundColor,
     this.onDarkThemeToggle,
     this.onChangeLanguageToggle,
+    this.padding,
   }) : super(key: key);
 
   /// If not [enabled], the [child] is used directly.
@@ -98,7 +99,10 @@ class DevicePreview extends StatefulWidget {
   final List<Locale>? availableLocales;
 
   final void Function(bool)? onDarkThemeToggle;
+
   final void Function(String)? onChangeLanguageToggle;
+
+  final EdgeInsetsGeometry? padding;
 
   /// The storage used to persist preferences.
   ///
@@ -439,19 +443,15 @@ class _DevicePreviewState extends State<DevicePreview> {
       (DevicePreviewStore store) => store.data.isDarkMode,
     );
 
-    // Trigger the callback when the theme is switched
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   _handleThemeToggle(isDarkMode);
-    // });
-
     return Container(
       color: widget.backgroundColor ?? theme.canvasColor,
-      padding: EdgeInsets.only(
-        top: 20 + mediaQuery.viewPadding.top,
-        right: 20 + mediaQuery.viewPadding.right,
-        left: 20 + mediaQuery.viewPadding.left,
-        bottom: 20,
-      ),
+      padding: widget.padding ??
+          EdgeInsets.only(
+            top: 20 + mediaQuery.viewPadding.top,
+            right: 20 + mediaQuery.viewPadding.right,
+            left: 20 + mediaQuery.viewPadding.left,
+            bottom: 20,
+          ),
       child: FittedBox(
         fit: BoxFit.contain,
         child: RepaintBoundary(

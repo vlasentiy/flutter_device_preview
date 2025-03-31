@@ -3,15 +3,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'basic.dart';
-import 'custom_plugin.dart';
 
 void main() {
   runApp(
     DevicePreview(
       enabled: true,
+      padding: EdgeInsets.zero,
       tools: const [
-        ...DevicePreview.defaultTools,
-        CustomPlugin(),
+        DeviceSection(
+          orientation: false,
+          virtualKeyboard: false,
+          frameVisibility: false,
+        ),
+        SystemSection(),
+        AccessibilitySection(
+          accessibleNavigation: false,
+          invertColors: false,
+          boldText: false,
+        ),
+        SettingsSection(),
       ],
       builder: (context) => const BasicApp(),
     ),
