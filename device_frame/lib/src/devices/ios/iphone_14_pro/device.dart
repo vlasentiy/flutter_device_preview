@@ -10,9 +10,9 @@ final info = DeviceInfo(
   identifier: const DeviceIdentifier(
     TargetPlatform.iOS,
     DeviceType.phone,
-    'iphone-12',
+    'iphone-14-pro',
   ),
-  name: 'iPhone 12',
+  name: 'iPhone 14 Pro',
   pixelRatio: 3.0,
   frameSize: const Size(842.0, 1770.0),
   screenSize: const Size(440, 934),
