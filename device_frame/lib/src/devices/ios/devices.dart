@@ -49,30 +49,8 @@ class IosDevices {
   DeviceInfo get iPad12InchesGen2 => i_ipad_12inches_gen2.info;
   DeviceInfo get iPad12InchesGen4 => i_ipad_12inches_gen4.info;
 
-  DeviceInfo get rectangle => _rectangle;
-  static final _rectangle = DeviceInfo.genericPhone(
-    platform: TargetPlatform.iOS,
-    id: 'rectangle',
-    name: 'rectangle',
-    pixelRatio: 3.0,
-    screenSize: const Size(448.0, 998.0),
-    safeAreas: const EdgeInsets.only(
-      left: 0.0,
-      top: 48.0,
-      right: 0.0,
-      bottom: 0.0,
-    ),
-    framePainter: const GenericPhoneFramePainter(
-      cameraRadius: 0,
-      screenRadius: Radius.zero,
-      innerBodyRadius: Radius.zero,
-      outerBodyRadius: Radius.zero,
-    ),
-  );
-
   /// All devices.
   List<DeviceInfo> get all => [
-        rectangle,
         // Phones
         iPhone14Pro,
         //iPhone12Mini,
