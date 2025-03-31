@@ -2,8 +2,6 @@ import 'package:device_frame/src/info/info.dart';
 
 import 'package:device_frame/src/devices/ios/iphone_12_mini/device.dart'
     as i_iphone_12_mini;
-import 'package:device_frame/src/devices/ios/iphone_12/device.dart'
-    as i_iphone_12;
 import 'package:device_frame/src/devices/ios/iphone_12_pro_max/device.dart'
     as i_iphone_12_pro_max;
 
@@ -34,7 +32,6 @@ class IosDevices {
   const IosDevices();
 
   DeviceInfo get iPhone12Mini => i_iphone_12_mini.info;
-  DeviceInfo get iPhone12 => i_iphone_12.info;
   DeviceInfo get iPhone12ProMax => i_iphone_12_pro_max.info;
   DeviceInfo get iPhone13Mini => i_iphone_13_mini.info;
   DeviceInfo get iPhone13 => i_iphone_13.info;
@@ -51,14 +48,13 @@ class IosDevices {
   List<DeviceInfo> get all => [
         // Phones
         iPhone14Pro,
-        iPhone12Mini,
-        iPhone12,
+        //iPhone12Mini,
         iPhone12ProMax,
-        iPhone13Mini,
+        //iPhone13Mini,
         iPhone13,
-        iPhone13ProMax,
+        //iPhone13ProMax,
         iPhoneSE,
-        //Tablets
+        // Tablets
         iPadAir4,
         iPad,
         iPadPro11Inches,
