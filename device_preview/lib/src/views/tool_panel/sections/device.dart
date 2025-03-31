@@ -69,16 +69,27 @@ class DeviceSection extends StatelessWidget {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TargetPlatformIcon(
-                  platform: deviceIdentifier.platform,
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                DeviceTypeIcon(
-                  type: deviceIdentifier.type,
-                ),
-                const Icon(Icons.chevron_right_rounded),
+                deviceIdentifier.platform == TargetPlatform.iOS
+                    ? const Icon(
+                        Icons.apple,
+                        color: Colors.blue,
+                        size: 36,
+                      )
+                    : const Icon(
+                        Icons.android,
+                        color: Colors.green,
+                        size: 36,
+                      ),
+                // TargetPlatformIcon(
+                //   platform: deviceIdentifier.platform,
+                // ),
+                // const SizedBox(
+                //   width: 8,
+                // ),
+                // DeviceTypeIcon(
+                //   type: deviceIdentifier.type,
+                // ),
+                // const Icon(Icons.chevron_right_rounded),
               ],
             ),
             onTap: () {

@@ -63,18 +63,28 @@ class _DeviceModelPickerState extends State<DeviceModelPicker>
         title: const Text('Device model'),
         bottom: TabBar(
           controller: controller,
-          isScrollable: true,
+          isScrollable: false,
           tabs: [
             ..._mobilePlatforms.map(
               (e) => Tab(
-                icon: TargetPlatformIcon(platform: e),
-                text: e.name,
+                icon: e == TargetPlatform.iOS
+                    ? const Icon(
+                        Icons.apple,
+                        color: Colors.blue,
+                        size: 36,
+                      )
+                    : const Icon(
+                        Icons.android,
+                        color: Colors.green,
+                        size: 36,
+                      ),
+                //text: e.name,
               ),
             ),
-            const Tab(
-              icon: Icon(Icons.tune),
-              text: 'Custom',
-            ),
+            // const Tab(
+            //   icon: Icon(Icons.tune),
+            //   text: 'Custom',
+            // ),
           ],
         ),
       ),
