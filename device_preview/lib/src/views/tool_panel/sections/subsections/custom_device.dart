@@ -245,7 +245,7 @@ List<Widget> buildCustomDeviceTiles(BuildContext context) {
     ToolPanelSection(
       title: 'System',
       children: [
-        ..._allPlatforms.map(
+        ..._mobilePlatforms.map(
           (p) => ListTile(
             leading: TargetPlatformIcon(platform: p),
             title: Text(
@@ -268,7 +268,7 @@ List<Widget> buildCustomDeviceTiles(BuildContext context) {
     ToolPanelSection(
       title: 'Form factor',
       children: [
-        ..._allDeviceTypes.map(
+        ..._mobileDeviceTypes.map(
           (type) => ListTile(
             leading: DeviceTypeIcon(
               type: type,

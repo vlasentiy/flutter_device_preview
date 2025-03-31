@@ -26,14 +26,14 @@ class _DeviceModelPickerState extends State<DeviceModelPicker>
     with SingleTickerProviderStateMixin {
   late final TabController controller = TabController(
     vsync: this,
-    length: _allPlatforms.length + 1,
+    length: _mobilePlatforms.length + 1,
     initialIndex: () {
       final store = context.read<DevicePreviewStore>();
       if (store.isCustomDevice) {
-        return _allPlatforms.length;
+        return _mobilePlatforms.length;
       }
       final platform = store.deviceInfo.identifier.platform;
-      return _allPlatforms.indexOf(platform);
+      return _mobilePlatforms.indexOf(platform);
     }(),
   );
 
@@ -42,7 +42,7 @@ class _DeviceModelPickerState extends State<DeviceModelPicker>
     super.initState();
     controller.addListener(
       () {
-        if (controller.index == _allPlatforms.length) {
+        if (controller.index == _mobilePlatforms.length) {
           final state = context.read<DevicePreviewStore>();
           state.enableCustomDevice();
         }
@@ -65,7 +65,7 @@ class _DeviceModelPickerState extends State<DeviceModelPicker>
           controller: controller,
           isScrollable: true,
           tabs: [
-            ..._allPlatforms.map(
+            ..._mobilePlatforms.map(
               (e) => Tab(
                 icon: TargetPlatformIcon(platform: e),
                 text: e.name,
@@ -82,7 +82,7 @@ class _DeviceModelPickerState extends State<DeviceModelPicker>
         controller: controller,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          ..._allPlatforms.map(
+          ..._mobilePlatforms.map(
             (e) => _PlatformModelPicker(
               platform: e,
             ),
@@ -113,6 +113,7 @@ class _PlatformModelPicker extends StatelessWidget {
           .where(
             (x) => platform == x.identifier.platform,
           )
+          .where((device) => device.identifier.type == DeviceType.phone)
           .toList()
         ..sort((x, y) {
           final result = x.screenSize.width.compareTo(y.screenSize.width);
@@ -123,14 +124,16 @@ class _PlatformModelPicker extends StatelessWidget {
     );
     final byDeviceType =
         groupBy<DeviceInfo, DeviceType>(devices, (d) => d.identifier.type);
+
     return ListView(
       children: [
         ...byDeviceType.entries
             .map(
               (e) => [
-                _TypeSectionHeader(
-                  type: e.key,
-                ),
+                if (byDeviceType.length > 1)
+                  _TypeSectionHeader(
+                    type: e.key,
+                  ),
                 ...e.value.map(
                   (d) => DeviceTile(
                     info: d,
@@ -215,9 +218,18 @@ const _allPlatforms = <TargetPlatform>[
   TargetPlatform.linux,
 ];
 
+const _mobilePlatforms = <TargetPlatform>[
+  TargetPlatform.iOS,
+  TargetPlatform.android,
+];
+
 const _allDeviceTypes = <DeviceType>[
   DeviceType.phone,
   DeviceType.tablet,
   DeviceType.desktop,
   DeviceType.laptop,
+];
+
+const _mobileDeviceTypes = <DeviceType>[
+  DeviceType.phone,
 ];
