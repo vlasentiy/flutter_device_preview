@@ -415,6 +415,73 @@ class _DevicePreviewState extends State<DevicePreview> {
     }
   }
 
+  Widget _buildDeviceFrame(BuildContext context) {
+    final device = context.select(
+      (DevicePreviewStore store) => store.deviceInfo,
+    );
+    final orientation = context.select(
+      (DevicePreviewStore store) => store.data.orientation,
+    );
+    final isVirtualKeyboardVisible = context.select(
+      (DevicePreviewStore store) => store.data.isVirtualKeyboardVisible,
+    );
+    final isDarkMode = context.select(
+      (DevicePreviewStore store) => store.data.isDarkMode,
+    );
+
+    return DeviceFrame(
+      device: device,
+      isFrameVisible: false,
+      orientation: orientation,
+      screen: VirtualKeyboard(
+        isEnabled: isVirtualKeyboardVisible,
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            platform: device.identifier.platform,
+            brightness: isDarkMode ? Brightness.dark : Brightness.light,
+          ),
+          child: MediaQuery(
+            data: DevicePreview._mediaQuery(context),
+            child: Builder(
+              key: _appKey,
+              builder: (context) {
+                final app = widget.builder(context);
+                assert(
+                  isWidgetsAppUsingInheritedMediaQuery(app),
+                  'Your widgets app should have its `useInheritedMediaQuery` property set to `true` in order to use DevicePreview.',
+                );
+                return app;
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRawBody(BuildContext context) {
+    return Container(
+      color: widget.backgroundColor ?? Theme.of(context).canvasColor,
+      child: SafeArea(
+        bottom: false,
+        child: MediaQuery(
+          data: DevicePreview._mediaQuery(context),
+          child: Builder(
+            key: _appKey,
+            builder: (context) {
+              final app = widget.builder(context);
+              assert(
+                isWidgetsAppUsingInheritedMediaQuery(app),
+                'Your widgets app should have its `useInheritedMediaQuery` property set to `true` in order to use DevicePreview.',
+              );
+              return app;
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildPreview(BuildContext context) {
     final theme = Theme.of(context);
     final isEnabled = context.select(
@@ -427,21 +494,6 @@ class _DevicePreviewState extends State<DevicePreview> {
     if (!isEnabled) return widget.builder(context);
 
     final mediaQuery = MediaQuery.of(context);
-    final device = context.select(
-      (DevicePreviewStore store) => store.deviceInfo,
-    );
-    final isFrameVisible = context.select(
-      (DevicePreviewStore store) => store.data.isFrameVisible,
-    );
-    final orientation = context.select(
-      (DevicePreviewStore store) => store.data.orientation,
-    );
-    final isVirtualKeyboardVisible = context.select(
-      (DevicePreviewStore store) => store.data.isVirtualKeyboardVisible,
-    );
-    final isDarkMode = context.select(
-      (DevicePreviewStore store) => store.data.isDarkMode,
-    );
 
     return Container(
       color: widget.backgroundColor ?? theme.canvasColor,
@@ -452,39 +504,11 @@ class _DevicePreviewState extends State<DevicePreview> {
             left: 20 + mediaQuery.viewPadding.left,
             bottom: 20,
           ),
-      child: FittedBox(
-        fit: BoxFit.contain,
-        child: RepaintBoundary(
-          key: _repaintKey,
-          child: DeviceFrame(
-            device: device,
-            isFrameVisible: false,
-            orientation: orientation,
-            screen: VirtualKeyboard(
-              isEnabled: isVirtualKeyboardVisible,
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  platform: device.identifier.platform,
-                  brightness: isDarkMode ? Brightness.dark : Brightness.light,
-                ),
-                child: MediaQuery(
-                  data: DevicePreview._mediaQuery(context),
-                  child: Builder(
-                    key: _appKey,
-                    builder: (context) {
-                      final app = widget.builder(context);
-                      assert(
-                        isWidgetsAppUsingInheritedMediaQuery(app),
-                        'Your widgets app should have its `useInheritedMediaQuery` property set to `true` in order to use DevicePreview.',
-                      );
-                      return app;
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+      child: RepaintBoundary(
+        key: _repaintKey,
+        child:
+            //_buildDeviceFrame(context),
+            _buildRawBody(context),
       ),
     );
   }

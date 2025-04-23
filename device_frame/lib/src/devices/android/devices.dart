@@ -1,3 +1,4 @@
+import 'package:device_frame/device_frame.dart';
 import 'package:device_frame/src/info/info.dart';
 
 import 'package:device_frame/src/devices/android/samsung_galaxy_s20/device.dart'

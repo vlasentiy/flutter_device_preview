@@ -26,7 +26,7 @@ class _DeviceModelPickerState extends State<DeviceModelPicker>
     with SingleTickerProviderStateMixin {
   late final TabController controller = TabController(
     vsync: this,
-    length: _mobilePlatforms.length + 1,
+    length: _mobilePlatforms.length,
     initialIndex: () {
       final store = context.read<DevicePreviewStore>();
       if (store.isCustomDevice) {
@@ -97,11 +97,11 @@ class _DeviceModelPickerState extends State<DeviceModelPicker>
               platform: e,
             ),
           ),
-          CustomScrollView(
-            slivers: [
-              ...buildCustomDeviceTiles(context),
-            ],
-          ),
+          // CustomScrollView(
+          //   slivers: [
+          //     ...buildCustomDeviceTiles(context),
+          //   ],
+          // ),
         ],
       ),
     );
