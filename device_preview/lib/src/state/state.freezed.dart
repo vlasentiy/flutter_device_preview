@@ -608,6 +608,8 @@ mixin _$DevicePreviewData {
   /// Indicate whether the mode is currently dark.
   bool get isDarkMode => throw _privateConstructorUsedError;
 
+  bool get isWrapped => throw _privateConstructorUsedError;
+
   /// Indicate whether texts are forced to bold.
   bool get boldText => throw _privateConstructorUsedError;
 
@@ -656,6 +658,7 @@ abstract class $DevicePreviewDataCopyWith<$Res> {
       String locale,
       bool isFrameVisible,
       bool isDarkMode,
+      bool isWrapped,
       bool boldText,
       bool isVirtualKeyboardVisible,
       bool disableAnimations,
@@ -689,6 +692,7 @@ class _$DevicePreviewDataCopyWithImpl<$Res>
     Object? locale = freezed,
     Object? isFrameVisible = freezed,
     Object? isDarkMode = freezed,
+    Object? isWrapped = freezed,
     Object? boldText = freezed,
     Object? isVirtualKeyboardVisible = freezed,
     Object? disableAnimations = freezed,
@@ -728,6 +732,10 @@ class _$DevicePreviewDataCopyWithImpl<$Res>
       isDarkMode: isDarkMode == freezed
           ? _value.isDarkMode
           : isDarkMode // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isWrapped: isWrapped == freezed
+          ? _value.isWrapped
+          : isWrapped // ignore: cast_nullable_to_non_nullable
               as bool,
       boldText: boldText == freezed
           ? _value.boldText
@@ -810,6 +818,7 @@ abstract class _$$_DevicePreviewDataCopyWith<$Res>
       String locale,
       bool isFrameVisible,
       bool isDarkMode,
+      bool isWrapped,
       bool boldText,
       bool isVirtualKeyboardVisible,
       bool disableAnimations,
@@ -847,6 +856,7 @@ class __$$_DevicePreviewDataCopyWithImpl<$Res>
     Object? locale = freezed,
     Object? isFrameVisible = freezed,
     Object? isDarkMode = freezed,
+    Object? isWrapped = freezed,
     Object? boldText = freezed,
     Object? isVirtualKeyboardVisible = freezed,
     Object? disableAnimations = freezed,
@@ -886,6 +896,10 @@ class __$$_DevicePreviewDataCopyWithImpl<$Res>
       isDarkMode: isDarkMode == freezed
           ? _value.isDarkMode
           : isDarkMode // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isWrapped: isWrapped == freezed
+          ? _value.isWrapped
+          : isWrapped // ignore: cast_nullable_to_non_nullable
               as bool,
       boldText: boldText == freezed
           ? _value.boldText
@@ -944,6 +958,7 @@ class _$_DevicePreviewData
       this.locale = 'en-US',
       this.isFrameVisible = true,
       this.isDarkMode = false,
+      this.isWrapped = false,
       this.boldText = false,
       this.isVirtualKeyboardVisible = false,
       this.disableAnimations = false,
@@ -993,6 +1008,10 @@ class _$_DevicePreviewData
   @override
   @JsonKey()
   final bool isDarkMode;
+
+  @override
+  @JsonKey()
+  final bool isWrapped;
 
   /// Indicate whether texts are forced to bold.
   @override
@@ -1049,7 +1068,7 @@ class _$_DevicePreviewData
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DevicePreviewData(isToolbarVisible: $isToolbarVisible, isEnabled: $isEnabled, orientation: $orientation, deviceIdentifier: $deviceIdentifier, locale: $locale, isFrameVisible: $isFrameVisible, isDarkMode: $isDarkMode, boldText: $boldText, isVirtualKeyboardVisible: $isVirtualKeyboardVisible, disableAnimations: $disableAnimations, highContrast: $highContrast, accessibleNavigation: $accessibleNavigation, invertColors: $invertColors, pluginData: $pluginData, textScaleFactor: $textScaleFactor, settings: $settings, customDevice: $customDevice)';
+    return 'DevicePreviewData(isToolbarVisible: $isToolbarVisible, isEnabled: $isEnabled, orientation: $orientation, deviceIdentifier: $deviceIdentifier, locale: $locale, isFrameVisible: $isFrameVisible, isDarkMode: $isDarkMode, isWrapped: $isWrapped, boldText: $boldText, isVirtualKeyboardVisible: $isVirtualKeyboardVisible, disableAnimations: $disableAnimations, highContrast: $highContrast, accessibleNavigation: $accessibleNavigation, invertColors: $invertColors, pluginData: $pluginData, textScaleFactor: $textScaleFactor, settings: $settings, customDevice: $customDevice)';
   }
 
   @override
@@ -1064,6 +1083,7 @@ class _$_DevicePreviewData
       ..add(DiagnosticsProperty('locale', locale))
       ..add(DiagnosticsProperty('isFrameVisible', isFrameVisible))
       ..add(DiagnosticsProperty('isDarkMode', isDarkMode))
+      ..add(DiagnosticsProperty('isWrapped', isWrapped))
       ..add(DiagnosticsProperty('boldText', boldText))
       ..add(DiagnosticsProperty(
           'isVirtualKeyboardVisible', isVirtualKeyboardVisible))
@@ -1094,6 +1114,7 @@ class _$_DevicePreviewData
                 .equals(other.isFrameVisible, isFrameVisible) &&
             const DeepCollectionEquality()
                 .equals(other.isDarkMode, isDarkMode) &&
+            const DeepCollectionEquality().equals(other.isWrapped, isWrapped) &&
             const DeepCollectionEquality().equals(other.boldText, boldText) &&
             const DeepCollectionEquality().equals(
                 other.isVirtualKeyboardVisible, isVirtualKeyboardVisible) &&
@@ -1125,6 +1146,7 @@ class _$_DevicePreviewData
       const DeepCollectionEquality().hash(locale),
       const DeepCollectionEquality().hash(isFrameVisible),
       const DeepCollectionEquality().hash(isDarkMode),
+      const DeepCollectionEquality().hash(isWrapped),
       const DeepCollectionEquality().hash(boldText),
       const DeepCollectionEquality().hash(isVirtualKeyboardVisible),
       const DeepCollectionEquality().hash(disableAnimations),
@@ -1157,6 +1179,7 @@ abstract class _DevicePreviewData implements DevicePreviewData {
       final String locale,
       final bool isFrameVisible,
       final bool isDarkMode,
+      final bool isWrapped,
       final bool boldText,
       final bool isVirtualKeyboardVisible,
       final bool disableAnimations,
@@ -1199,6 +1222,8 @@ abstract class _DevicePreviewData implements DevicePreviewData {
 
   /// Indicate whether the mode is currently dark.
   bool get isDarkMode => throw _privateConstructorUsedError;
+  @override
+  bool get isWrapped => throw _privateConstructorUsedError;
   @override
 
   /// Indicate whether texts are forced to bold.

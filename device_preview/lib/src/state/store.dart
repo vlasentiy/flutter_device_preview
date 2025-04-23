@@ -218,6 +218,12 @@ extension DevicePreviewStateHelperExtensions on DevicePreviewStore {
     );
   }
 
+  void toggleWrapped() {
+    data = data.copyWith(
+      isWrapped: !data.isWrapped,
+    );
+  }
+
   /// Change the simulated device orientation between portrait and landscape.
   void rotate() {
     final index = (data.orientation.index + 1) % Orientation.values.length;

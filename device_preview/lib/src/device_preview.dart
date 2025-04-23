@@ -61,6 +61,7 @@ class DevicePreview extends StatefulWidget {
     this.enabled = true,
     this.backgroundColor,
     this.onDarkThemeToggle,
+    this.onWrappedToggle,
     this.onChangeLanguageToggle,
     this.padding,
   }) : super(key: key);
@@ -99,6 +100,8 @@ class DevicePreview extends StatefulWidget {
   final List<Locale>? availableLocales;
 
   final void Function(bool)? onDarkThemeToggle;
+
+  final void Function(bool)? onWrappedToggle;
 
   final void Function(String)? onChangeLanguageToggle;
 
@@ -395,6 +398,12 @@ class _DevicePreviewState extends State<DevicePreview> {
     }
   }
 
+  void _handleWrappedToggle(bool isWrapped) {
+    if (widget.onWrappedToggle != null) {
+      widget.onWrappedToggle!(isWrapped);
+    }
+  }
+
   void _handleLanguageChange(String languageCode) {
     if (widget.onChangeLanguageToggle != null) {
       widget.onChangeLanguageToggle!(languageCode);
@@ -495,6 +504,13 @@ class _DevicePreviewState extends State<DevicePreview> {
 
     final mediaQuery = MediaQuery.of(context);
 
+    final isWrapped = context.select(
+      (DevicePreviewStore store) => store.state.maybeMap(
+        initialized: (state) => state.data.isWrapped,
+        orElse: () => false,
+      ),
+    );
+
     return Container(
       color: widget.backgroundColor ?? theme.canvasColor,
       padding: widget.padding ??
@@ -506,9 +522,7 @@ class _DevicePreviewState extends State<DevicePreview> {
           ),
       child: RepaintBoundary(
         key: _repaintKey,
-        child:
-            //_buildDeviceFrame(context),
-            _buildRawBody(context),
+        child: isWrapped ? _buildDeviceFrame(context) : _buildRawBody(context),
       ),
     );
   }

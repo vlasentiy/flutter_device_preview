@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:device_preview/src/state/store.dart';
 import 'package:device_preview/src/views/tool_panel/sections/subsections/device_model.dart';
 import 'package:device_preview/src/views/tool_panel/widgets/device_type_icon.dart';
@@ -58,10 +59,30 @@ class DeviceSection extends StatelessWidget {
       (DevicePreviewStore store) => store.data.isFrameVisible,
     );
 
+    final isWrapped = context.select(
+      (DevicePreviewStore store) => store.data.isWrapped,
+    );
+
     return ToolPanelSection(
       title: 'Device',
       children: [
-        if (model)
+        ListTile(
+          title: const Text('Device Frame'),
+          subtitle: Text(isWrapped ? 'Enabled' : 'Disabled'),
+          trailing: Switch(
+            padding: EdgeInsets.zero,
+            value: isWrapped,
+            onChanged: (value) {
+              final state = context.read<DevicePreviewStore>();
+              state.toggleWrapped();
+            },
+          ),
+          onTap: () {
+            final state = context.read<DevicePreviewStore>();
+            state.toggleWrapped();
+          },
+        ),
+        if (model && isWrapped)
           ListTile(
             key: const Key('model'),
             title: const Text('Model'),
