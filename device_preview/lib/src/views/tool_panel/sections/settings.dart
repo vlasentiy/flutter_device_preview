@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:device_preview/src/views/theme.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class SettingsSection extends StatelessWidget {
                   : 'Light',
             ),
             trailing: Container(
-              width: 24,
+              width: 24 + (Platform.isAndroid ? 20 : 8),
               height: 24,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -74,7 +76,7 @@ class SettingsSection extends StatelessWidget {
                   : 'Light',
             ),
             trailing: Container(
-              width: 24,
+              width: 24 + (Platform.isAndroid ? 20 : 8),
               height: 24,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,

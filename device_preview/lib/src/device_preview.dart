@@ -64,6 +64,7 @@ class DevicePreview extends StatefulWidget {
     this.onWrappedToggle,
     this.onChangeLanguageToggle,
     this.padding,
+    this.safeAreaBottomPadding = 0,
   }) : super(key: key);
 
   /// If not [enabled], the [child] is used directly.
@@ -106,6 +107,8 @@ class DevicePreview extends StatefulWidget {
   final void Function(String)? onChangeLanguageToggle;
 
   final EdgeInsetsGeometry? padding;
+
+  final double? safeAreaBottomPadding;
 
   /// The storage used to persist preferences.
   ///
@@ -627,6 +630,8 @@ class _DevicePreviewState extends State<DevicePreview> {
                             right: 0,
                             left: 0,
                             child: DevicePreviewSmallLayout(
+                              safeAreaBottomPadding:
+                                  widget.safeAreaBottomPadding ?? 0,
                               slivers: widget.tools,
                               maxMenuHeight: constraints.maxHeight * 0.5,
                               scaffoldKey: scaffoldKey,

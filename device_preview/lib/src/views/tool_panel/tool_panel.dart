@@ -13,6 +13,7 @@ class ToolPanel extends StatelessWidget {
     Key? key,
     required this.slivers,
     this.isModal = false,
+    required this.safeAreaBottomPadding,
   }) : super(key: key);
 
   /// Indicates whether the panel is shown modally as a new page, or if it
@@ -23,6 +24,8 @@ class ToolPanel extends StatelessWidget {
   ///
   /// They must be [Sliver]s.
   final List<Widget> slivers;
+
+  final double safeAreaBottomPadding;
 
   /// The panel width when not modal.
   static const double panelWidth = 320;
@@ -41,6 +44,7 @@ class ToolPanel extends StatelessWidget {
               return Theme(
                 data: toolbarTheme.asThemeData(),
                 child: _ToolPanel(
+                  safeAreaBottomPadding: safeAreaBottomPadding,
                   sections: slivers,
                   isModal: isModal,
                   onClose: () {
@@ -62,11 +66,13 @@ class _ToolPanel extends StatelessWidget {
     required this.isModal,
     required this.onClose,
     required this.sections,
+    required this.safeAreaBottomPadding,
   }) : super(key: key);
 
   final bool isModal;
   final VoidCallback onClose;
   final List<Widget> sections;
+  final double safeAreaBottomPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +114,10 @@ class _ToolPanel extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          CustomScrollView(slivers: sections),
+          Padding(
+            padding: EdgeInsets.only(bottom: safeAreaBottomPadding),
+            child: CustomScrollView(slivers: sections),
+          ), ////
           IgnorePointer(
             ignoring: isEnabled,
             child: AnimatedOpacity(

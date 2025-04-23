@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:device_preview/src/state/store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -113,9 +115,9 @@ class AccessibilitySection extends StatelessWidget {
             trailing: Transform(
               alignment: Alignment.center,
               transform: (Matrix4.identity()..scale(textScalingFactor)),
-              child: const SizedBox(
-                width: 36,
-                child: Center(
+              child: SizedBox(
+                width: 36 + (Platform.isAndroid ? 8 : 0),
+                child: const Center(
                   child: Icon(
                     Icons.font_download_outlined,
                     size: 16.0,

@@ -6,10 +6,16 @@ import 'basic.dart';
 
 void main() {
   runApp(
-    DevicePreview(
-      enabled: true,
-      padding: EdgeInsets.zero,
-      builder: (context) => const BasicApp(),
+    Builder(
+      builder: (context) {
+        final bottomPadding = MediaQuery.of(context).padding.bottom;
+        return DevicePreview(
+          enabled: true,
+          padding: EdgeInsets.zero,
+          safeAreaBottomPadding: bottomPadding,
+          builder: (context) => const BasicApp(),
+        );
+      },
     ),
   );
 }

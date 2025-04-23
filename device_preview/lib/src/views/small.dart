@@ -14,6 +14,7 @@ class DevicePreviewSmallLayout extends StatelessWidget {
     required this.scaffoldKey,
     required this.onMenuVisibleChanged,
     required this.slivers,
+    required this.safeAreaBottomPadding,
   }) : super(key: key);
 
   /// The maximum modal menu height.
@@ -29,6 +30,8 @@ class DevicePreviewSmallLayout extends StatelessWidget {
   ///
   /// They must be [Sliver]s.
   final List<Widget> slivers;
+
+  final double safeAreaBottomPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +52,7 @@ class DevicePreviewSmallLayout extends StatelessWidget {
                   topRight: Radius.circular(10),
                 ),
                 child: ToolPanel(
+                  safeAreaBottomPadding: safeAreaBottomPadding,
                   isModal: true,
                   slivers: slivers,
                 ),

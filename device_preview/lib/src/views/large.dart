@@ -67,6 +67,7 @@ class DevicePreviewLargeLayoutState extends State<DevicePreviewLargeLayout> {
                       return [
                         MaterialPageRoute(
                           builder: (context) => ToolPanel(
+                            safeAreaBottomPadding: 0,
                             slivers: widget.slivers,
                           ),
                         ),
