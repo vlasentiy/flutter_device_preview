@@ -63,69 +63,66 @@ class DeviceSection extends StatelessWidget {
       (DevicePreviewStore store) => store.data.isWrapped,
     );
 
+    Widget buildDeviceTypeIcon() {
+      return deviceIdentifier.platform == TargetPlatform.iOS
+          ? const Icon(
+              Icons.apple,
+              color: Colors.blue,
+              size: 36,
+            )
+          : const Icon(
+              Icons.android,
+              color: Colors.green,
+              size: 36,
+            );
+    }
+
     return ToolPanelSection(
       title: 'Device',
       children: [
         ListTile(
           title: const Text('Device Frame'),
-          subtitle: Text(isWrapped ? 'Enabled' : 'Disabled'),
-          trailing: Switch(
-            padding: EdgeInsets.zero,
-            value: isWrapped,
-            onChanged: (value) {
-              final state = context.read<DevicePreviewStore>();
-              state.toggleWrapped();
-            },
+          subtitle: Text(isWrapped ? deviceName : 'Disabled'),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 16,
+            children: [
+              GestureDetector(
+                onTap: !isWrapped
+                    ? null
+                    : () {
+                        final theme = Theme.of(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Theme(
+                              data: theme,
+                              child: const DeviceModelPicker(),
+                            ),
+                          ),
+                        );
+                      },
+                child: AnimatedOpacity(
+                  opacity: isWrapped ? 1.0 : 0,
+                  duration: const Duration(milliseconds: 200),
+                  child: buildDeviceTypeIcon(),
+                ),
+              ),
+              Switch(
+                padding: EdgeInsets.zero,
+                value: isWrapped,
+                onChanged: (value) {
+                  final state = context.read<DevicePreviewStore>();
+                  state.toggleWrapped();
+                },
+              ),
+            ],
           ),
           onTap: () {
             final state = context.read<DevicePreviewStore>();
             state.toggleWrapped();
           },
         ),
-        if (model && isWrapped)
-          ListTile(
-            key: const Key('model'),
-            title: const Text('Model'),
-            subtitle: Text(deviceName),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                deviceIdentifier.platform == TargetPlatform.iOS
-                    ? const Icon(
-                        Icons.apple,
-                        color: Colors.blue,
-                        size: 36,
-                      )
-                    : const Icon(
-                        Icons.android,
-                        color: Colors.green,
-                        size: 36,
-                      ),
-                // TargetPlatformIcon(
-                //   platform: deviceIdentifier.platform,
-                // ),
-                // const SizedBox(
-                //   width: 8,
-                // ),
-                // DeviceTypeIcon(
-                //   type: deviceIdentifier.type,
-                // ),
-                // const Icon(Icons.chevron_right_rounded),
-              ],
-            ),
-            onTap: () {
-              final theme = Theme.of(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Theme(
-                    data: theme,
-                    child: const DeviceModelPicker(),
-                  ),
-                ),
-              );
-            },
-          ),
         if (this.orientation && canRotate)
           ListTile(
             key: const Key('orientation'),

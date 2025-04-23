@@ -120,9 +120,17 @@ class DevicePreview extends StatefulWidget {
   /// All the default tools included in the menu : [DeviceSection], [SystemSection],
   /// [AccessibilitySection] and [SettingsSection].
   static const List<Widget> defaultTools = <Widget>[
-    DeviceSection(),
+    DeviceSection(
+      orientation: false,
+      virtualKeyboard: false,
+      frameVisibility: false,
+    ),
     SystemSection(),
-    AccessibilitySection(),
+    AccessibilitySection(
+      accessibleNavigation: false,
+      invertColors: false,
+      boldText: false,
+    ),
     SettingsSection(),
   ];
 
@@ -609,7 +617,7 @@ class _DevicePreviewState extends State<DevicePreview> {
                             : (64 + mediaQuery.padding.right))
                         : 0;
                     final double bottomPanelOffset =
-                        isSmall ? mediaQuery.padding.bottom + 52 : 0;
+                        isSmall ? mediaQuery.padding.bottom + 64 : 0;
                     return Stack(
                       children: <Widget>[
                         if (isToolbarVisible && isSmall)

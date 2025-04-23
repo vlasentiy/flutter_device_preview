@@ -3,7 +3,6 @@ import 'package:device_preview/src/views/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 /// All the settings for customizing the preview.
 class SettingsSection extends StatelessWidget {
   /// Create a new menu section with settings for customizing the preview.
@@ -50,8 +49,8 @@ class SettingsSection extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: background.scaffoldBackgroundColor,
                 border: Border.all(
-                  color: toolbar.colorScheme.surface,
-                  width: 1,
+                  color: toolbar.colorScheme.inverseSurface,
+                  width: 2,
                 ),
               ),
             ),
@@ -81,8 +80,8 @@ class SettingsSection extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: toolbar.scaffoldBackgroundColor,
                 border: Border.all(
-                  color: toolbar.colorScheme.surface,
-                  width: 1,
+                  color: toolbar.colorScheme.inverseSurface,
+                  width: 2,
                 ),
               ),
             ),

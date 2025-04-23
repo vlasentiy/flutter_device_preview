@@ -112,17 +112,22 @@ class AccessibilitySection extends StatelessWidget {
             subtitle: Text(textScalingFactor.toString()),
             trailing: Transform(
               alignment: Alignment.center,
-              transform: (Matrix4.identity()
-                ..scale(
-                  textScalingFactor >= 2
-                      ? 1.0
-                      : (textScalingFactor < 1 ? 0.25 : 0.6),
-                )),
-              child: const Icon(Icons.text_format),
+              transform: (Matrix4.identity()..scale(textScalingFactor)),
+              child: const SizedBox(
+                width: 36,
+                child: Center(
+                  child: Icon(
+                    Icons.font_download_outlined,
+                    size: 16.0,
+                  ),
+                ),
+              ),
             ),
           ),
           ListTile(
             key: const Key('text-scaling-slider'),
+            contentPadding: EdgeInsets.zero,
+            minVerticalPadding: 0,
             title: Slider(
               value: textScalingFactor,
               onChanged: (v) {

@@ -9,20 +9,6 @@ void main() {
     DevicePreview(
       enabled: true,
       padding: EdgeInsets.zero,
-      tools: const [
-        DeviceSection(
-          orientation: false,
-          virtualKeyboard: false,
-          frameVisibility: false,
-        ),
-        SystemSection(),
-        AccessibilitySection(
-          accessibleNavigation: false,
-          invertColors: false,
-          boldText: false,
-        ),
-        SettingsSection(),
-      ],
       builder: (context) => const BasicApp(),
     ),
   );

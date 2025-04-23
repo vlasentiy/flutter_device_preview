@@ -77,19 +77,20 @@ class _ToolPanel extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: theme.colorScheme.surface,
+        elevation: 2,
         title: Text(
-          'Device preview',
+          'Settings',
           style: theme.textTheme.titleLarge?.copyWith(
-            fontSize: 14,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: (theme.colorScheme.brightness == Brightness.dark
-                ? theme.colorScheme.onSurface
-                : theme.colorScheme.onPrimary),
+            color: theme.colorScheme.primary,
           ),
         ),
         leading: isModal
             ? IconButton(
                 icon: const Icon(Icons.close),
+                color: theme.colorScheme.primary,
                 tooltip: MaterialLocalizations.of(context).backButtonTooltip,
                 onPressed: onClose,
               )
@@ -107,9 +108,7 @@ class _ToolPanel extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          CustomScrollView(
-            slivers: sections,
-          ),
+          CustomScrollView(slivers: sections),
           IgnorePointer(
             ignoring: isEnabled,
             child: AnimatedOpacity(
