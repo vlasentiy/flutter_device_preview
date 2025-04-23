@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "tile": "Tile {number}",
+  "@tile": {
+    "description": "The title of a list tile with a number"
+  }
+}

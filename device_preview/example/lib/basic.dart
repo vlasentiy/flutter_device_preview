@@ -1,6 +1,9 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:device_preview/l10n/gen/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+//import 'package:flutter_localizations/flutter_localizations.dart';
 
 class BasicApp extends StatelessWidget {
   const BasicApp({
@@ -15,6 +18,8 @@ class BasicApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: const Home(),
     );
   }
@@ -36,7 +41,7 @@ class Home extends StatelessWidget {
           ...Iterable.generate(
             100,
             (i) => ListTile(
-              title: Text('Tile $i'),
+              title: Text(AppLocalizations.of(context)!.tile(i)),
               onTap: () {},
             ),
           )
