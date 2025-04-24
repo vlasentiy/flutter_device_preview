@@ -63,6 +63,7 @@ class DevicePreview extends StatefulWidget {
     this.onDarkThemeToggle,
     this.onWrappedToggle,
     this.onChangeLanguageToggle,
+    this.onEnabledToggle,
     this.padding,
     this.safeAreaBottomPadding = 0,
   }) : super(key: key);
@@ -105,6 +106,8 @@ class DevicePreview extends StatefulWidget {
   final void Function(bool)? onWrappedToggle;
 
   final void Function(String)? onChangeLanguageToggle;
+
+  final void Function(bool)? onEnabledToggle;
 
   final EdgeInsetsGeometry? padding;
 

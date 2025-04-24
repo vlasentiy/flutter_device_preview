@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:device_preview/src/state/store.dart';
 import 'package:device_preview/src/views/theme.dart';
 import 'package:flutter/material.dart';
@@ -94,6 +95,9 @@ class _BottomToolbar extends StatelessWidget {
           onChanged: (v) {
             final state = context.read<DevicePreviewStore>();
             state.data = state.data.copyWith(isEnabled: v);
+            final devicePreview =
+                context.findAncestorWidgetOfExactType<DevicePreview>();
+            devicePreview?.onEnabledToggle?.call(v);
           },
         ),
       ),
