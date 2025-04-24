@@ -109,7 +109,7 @@ class _BottomToolbar extends StatelessWidget {
               state.data = state.data.copyWith(isEnabled: v);
               final devicePreview =
                   context.findAncestorWidgetOfExactType<DevicePreview>();
-              devicePreview?.onEnabledToggle?.call(v);
+              devicePreview?.onEnabledToggle?.call(v, state);
             },
           ),
         ),
