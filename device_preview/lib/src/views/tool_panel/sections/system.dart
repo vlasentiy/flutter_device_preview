@@ -41,51 +41,57 @@ class SystemSection extends StatelessWidget {
       orElse: () => locales.first,
     );
 
-    return ToolPanelSection(
-      title: 'System',
-      children: [
-        if (locale)
-          ListTile(
-            key: const Key('locale'),
-            title: const Text('Locale'),
-            subtitle: Text(selectedLocale.name),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  ((selectedLocale.code == 'en') ? '🇬🇧' : '🇺🇦'),
-                  style: const TextStyle(fontSize: 36),
-                )
-              ],
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: Colors.grey.withValues(alpha: 0.2),
+        highlightColor: Colors.grey.withValues(alpha: 0.2),
+      ),
+      child: ToolPanelSection(
+        title: 'System',
+        children: [
+          if (locale)
+            ListTile(
+              key: const Key('locale'),
+              title: const Text('Locale'),
+              subtitle: Text(selectedLocale.name),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    ((selectedLocale.code == 'en') ? '🇬🇧' : '🇺🇦'),
+                    style: const TextStyle(fontSize: 36),
+                  )
+                ],
+              ),
+              onTap: () {
+                final newLocaleCode = selectedLocale.code == 'en' ? 'uk' : 'en';
+                final store = context.read<DevicePreviewStore>();
+                store.data = store.data.copyWith(locale: newLocaleCode);
+                final devicePreview =
+                    context.findAncestorWidgetOfExactType<DevicePreview>();
+                devicePreview?.onChangeLanguageToggle?.call(newLocaleCode);
+              },
             ),
-            onTap: () {
-              final newLocaleCode = selectedLocale.code == 'en' ? 'uk' : 'en';
-              final store = context.read<DevicePreviewStore>();
-              store.data = store.data.copyWith(locale: newLocaleCode);
-              final devicePreview =
-                  context.findAncestorWidgetOfExactType<DevicePreview>();
-              devicePreview?.onChangeLanguageToggle?.call(newLocaleCode);
-            },
-          ),
-        if (theme)
-          ListTile(
-            key: const Key('theme'),
-            title: const Text('Theme'),
-            subtitle: Text(isDarkMode ? 'Dark' : 'Light'),
-            trailing: Text(
-              (isDarkMode ? '🌚' : '🌝'),
-              style: const TextStyle(fontSize: 36),
-            ),
-            onTap: () {
-              final state = context.read<DevicePreviewStore>();
-              state.toggleDarkMode();
+          if (theme)
+            ListTile(
+              key: const Key('theme'),
+              title: const Text('Theme'),
+              subtitle: Text(isDarkMode ? 'Dark' : 'Light'),
+              trailing: Text(
+                (isDarkMode ? '🌚' : '🌝'),
+                style: const TextStyle(fontSize: 36),
+              ),
+              onTap: () {
+                final state = context.read<DevicePreviewStore>();
+                state.toggleDarkMode();
 
-              final devicePreview =
-                  context.findAncestorWidgetOfExactType<DevicePreview>();
-              devicePreview?.onDarkThemeToggle?.call(!isDarkMode);
-            },
-          ),
-      ],
+                final devicePreview =
+                    context.findAncestorWidgetOfExactType<DevicePreview>();
+                devicePreview?.onDarkThemeToggle?.call(!isDarkMode);
+              },
+            ),
+        ],
+      ),
     );
   }
 }

@@ -77,116 +77,122 @@ class DeviceSection extends StatelessWidget {
             );
     }
 
-    return ToolPanelSection(
-      title: 'Device',
-      children: [
-        ListTile(
-          title: const Text('Device Frame'),
-          subtitle: Text(isWrapped ? deviceName : 'Disabled'),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            spacing: 16,
-            children: [
-              GestureDetector(
-                onTap: !isWrapped
-                    ? null
-                    : () {
-                        final theme = Theme.of(context);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Theme(
-                              data: theme,
-                              child: const DeviceModelPicker(),
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: Colors.grey.withValues(alpha: 0.2),
+        highlightColor: Colors.grey.withValues(alpha: 0.2),
+      ),
+      child: ToolPanelSection(
+        title: 'Device',
+        children: [
+          ListTile(
+            title: const Text('Device Frame'),
+            subtitle: Text(isWrapped ? deviceName : 'Disabled'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 16,
+              children: [
+                GestureDetector(
+                  onTap: !isWrapped
+                      ? null
+                      : () {
+                          final theme = Theme.of(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Theme(
+                                data: theme,
+                                child: const DeviceModelPicker(),
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                child: AnimatedOpacity(
-                  opacity: isWrapped ? 1.0 : 0,
-                  duration: const Duration(milliseconds: 200),
-                  child: buildDeviceTypeIcon(),
+                          );
+                        },
+                  child: AnimatedOpacity(
+                    opacity: isWrapped ? 1.0 : 0,
+                    duration: const Duration(milliseconds: 200),
+                    child: buildDeviceTypeIcon(),
+                  ),
+                ),
+                Switch(
+                  padding: EdgeInsets.zero,
+                  value: isWrapped,
+                  onChanged: (value) {
+                    final state = context.read<DevicePreviewStore>();
+                    state.toggleWrapped();
+                  },
+                ),
+              ],
+            ),
+            onTap: () {
+              final state = context.read<DevicePreviewStore>();
+              state.toggleWrapped();
+            },
+          ),
+          if (this.orientation && canRotate)
+            ListTile(
+              key: const Key('orientation'),
+              title: const Text('Orientation'),
+              subtitle: Text(
+                () {
+                  switch (orientation) {
+                    case Orientation.landscape:
+                      return 'Landscape';
+                    case Orientation.portrait:
+                      return 'Portrait';
+                  }
+                }(),
+              ),
+              trailing: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                transformAlignment: Alignment.center,
+                transform: Matrix4.rotationZ(
+                  orientation == Orientation.landscape ? 2.35 : 0.75,
+                ),
+                child: const Icon(Icons.screen_rotation),
+              ),
+              onTap: () {
+                final state = context.read<DevicePreviewStore>();
+                state.rotate();
+              },
+            ),
+          if (frameVisibility)
+            ListTile(
+              key: const Key('frame'),
+              title: const Text('Frame visibility'),
+              subtitle: Text(isFrameVisible ? 'Visible' : 'Hidden'),
+              trailing: Opacity(
+                opacity: isFrameVisible ? 1.0 : 0.3,
+                child: Icon(
+                  isFrameVisible
+                      ? Icons.border_outer_rounded
+                      : Icons.border_clear_rounded,
                 ),
               ),
-              Switch(
-                padding: EdgeInsets.zero,
-                value: isWrapped,
-                onChanged: (value) {
-                  final state = context.read<DevicePreviewStore>();
-                  state.toggleWrapped();
-                },
-              ),
-            ],
-          ),
-          onTap: () {
-            final state = context.read<DevicePreviewStore>();
-            state.toggleWrapped();
-          },
-        ),
-        if (this.orientation && canRotate)
-          ListTile(
-            key: const Key('orientation'),
-            title: const Text('Orientation'),
-            subtitle: Text(
-              () {
-                switch (orientation) {
-                  case Orientation.landscape:
-                    return 'Landscape';
-                  case Orientation.portrait:
-                    return 'Portrait';
-                }
-              }(),
+              onTap: () {
+                final state = context.read<DevicePreviewStore>();
+                state.toggleFrame();
+              },
             ),
-            trailing: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              transformAlignment: Alignment.center,
-              transform: Matrix4.rotationZ(
-                orientation == Orientation.landscape ? 2.35 : 0.75,
+          if (virtualKeyboard)
+            ListTile(
+              key: const Key('keyboard'),
+              title: const Text('Virtual keyboard preview'),
+              subtitle: Text(isVirtualKeyboardVisible ? 'Visible' : 'Hidden'),
+              trailing: Opacity(
+                opacity: isVirtualKeyboardVisible ? 1.0 : 0.3,
+                child: Icon(
+                  isVirtualKeyboardVisible
+                      ? Icons.keyboard
+                      : Icons.keyboard_outlined,
+                ),
               ),
-              child: const Icon(Icons.screen_rotation),
+              onTap: () {
+                final state = context.read<DevicePreviewStore>();
+                state.toggleVirtualKeyboard();
+              },
             ),
-            onTap: () {
-              final state = context.read<DevicePreviewStore>();
-              state.rotate();
-            },
-          ),
-        if (frameVisibility)
-          ListTile(
-            key: const Key('frame'),
-            title: const Text('Frame visibility'),
-            subtitle: Text(isFrameVisible ? 'Visible' : 'Hidden'),
-            trailing: Opacity(
-              opacity: isFrameVisible ? 1.0 : 0.3,
-              child: Icon(
-                isFrameVisible
-                    ? Icons.border_outer_rounded
-                    : Icons.border_clear_rounded,
-              ),
-            ),
-            onTap: () {
-              final state = context.read<DevicePreviewStore>();
-              state.toggleFrame();
-            },
-          ),
-        if (virtualKeyboard)
-          ListTile(
-            key: const Key('keyboard'),
-            title: const Text('Virtual keyboard preview'),
-            subtitle: Text(isVirtualKeyboardVisible ? 'Visible' : 'Hidden'),
-            trailing: Opacity(
-              opacity: isVirtualKeyboardVisible ? 1.0 : 0.3,
-              child: Icon(
-                isVirtualKeyboardVisible
-                    ? Icons.keyboard
-                    : Icons.keyboard_outlined,
-              ),
-            ),
-            onTap: () {
-              final state = context.read<DevicePreviewStore>();
-              state.toggleVirtualKeyboard();
-            },
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -32,71 +32,66 @@ class SettingsSection extends StatelessWidget {
     );
     final background = backgroundTheme.asThemeData();
     final toolbar = toolbarTheme.asThemeData();
-    return ToolPanelSection(
-      title: 'Preview settings',
-      children: [
-        if (this.backgroundTheme)
-          ListTile(
-            key: const Key('background-theme'),
-            title: const Text('Background color'),
-            subtitle: Text(
-              backgroundTheme == DevicePreviewBackgroundThemeData.dark
-                  ? 'Dark'
-                  : 'Light',
-            ),
-            trailing: Container(
-              width: 24 + (Platform.isAndroid ? 20 : 8),
-              height: 24,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: background.scaffoldBackgroundColor,
-                border: Border.all(
-                  color: toolbar.colorScheme.inverseSurface,
-                  width: 2,
-                ),
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: Colors.grey.withValues(alpha: 0.2),
+        highlightColor: Colors.grey.withValues(alpha: 0.2),
+      ),
+      child: ToolPanelSection(
+        title: 'Preview settings',
+        children: [
+          if (this.backgroundTheme)
+            ListTile(
+              key: const Key('background-theme'),
+              title: const Text('Background color'),
+              subtitle: Text(
+                backgroundTheme == DevicePreviewBackgroundThemeData.dark
+                    ? 'Dark'
+                    : 'Light',
               ),
-            ),
-            onTap: () {
-              final state = context.read<DevicePreviewStore>();
-              state.settings = state.settings.copyWith(
-                backgroundTheme:
-                    backgroundTheme == DevicePreviewBackgroundThemeData.dark
-                        ? DevicePreviewBackgroundThemeData.light
-                        : DevicePreviewBackgroundThemeData.dark,
-              );
-            },
-          ),
-        if (toolsTheme)
-          ListTile(
-            key: const Key('toolbar-theme'),
-            title: const Text('Tools theme'),
-            subtitle: Text(
-              toolbarTheme == DevicePreviewToolBarThemeData.dark
-                  ? 'Dark'
-                  : 'Light',
-            ),
-            trailing: Container(
-              width: 24 + (Platform.isAndroid ? 20 : 8),
-              height: 24,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: toolbar.scaffoldBackgroundColor,
-                border: Border.all(
-                  color: toolbar.colorScheme.inverseSurface,
-                  width: 2,
-                ),
+              trailing: Text(
+                (backgroundTheme == DevicePreviewBackgroundThemeData.dark
+                    ? '🌌'
+                    : '🌅'),
+                style: const TextStyle(fontSize: 36),
               ),
+              onTap: () {
+                final state = context.read<DevicePreviewStore>();
+                state.settings = state.settings.copyWith(
+                  backgroundTheme:
+                      backgroundTheme == DevicePreviewBackgroundThemeData.dark
+                          ? DevicePreviewBackgroundThemeData.light
+                          : DevicePreviewBackgroundThemeData.dark,
+                );
+              },
             ),
-            onTap: () {
-              final state = context.read<DevicePreviewStore>();
-              state.settings = state.settings.copyWith(
-                toolbarTheme: toolbarTheme == DevicePreviewToolBarThemeData.dark
-                    ? DevicePreviewToolBarThemeData.light
-                    : DevicePreviewToolBarThemeData.dark,
-              );
-            },
-          ),
-      ],
+          if (toolsTheme)
+            ListTile(
+              key: const Key('toolbar-theme'),
+              title: const Text('Tools theme'),
+              subtitle: Text(
+                toolbarTheme == DevicePreviewToolBarThemeData.dark
+                    ? 'Dark'
+                    : 'Light',
+              ),
+              trailing: Text(
+                (toolbarTheme == DevicePreviewToolBarThemeData.dark
+                    ? '🕯️'
+                    : '💡'),
+                style: const TextStyle(fontSize: 36),
+              ),
+              onTap: () {
+                final state = context.read<DevicePreviewStore>();
+                state.settings = state.settings.copyWith(
+                  toolbarTheme:
+                      toolbarTheme == DevicePreviewToolBarThemeData.dark
+                          ? DevicePreviewToolBarThemeData.light
+                          : DevicePreviewToolBarThemeData.dark,
+                );
+              },
+            ),
+        ],
+      ),
     );
   }
 }

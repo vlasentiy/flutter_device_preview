@@ -85,20 +85,33 @@ class _BottomToolbar extends StatelessWidget {
     final isEnabled = context.select(
       (DevicePreviewStore store) => store.data.isEnabled,
     );
-    return Material(
-      child: ListTile(
-        title: const Text('Settings'),
-        onTap: isEnabled ? showPanel : null,
-        leading: const Icon(Icons.tune),
-        trailing: Switch(
-          value: isEnabled,
-          onChanged: (v) {
-            final state = context.read<DevicePreviewStore>();
-            state.data = state.data.copyWith(isEnabled: v);
-            final devicePreview =
-                context.findAncestorWidgetOfExactType<DevicePreview>();
-            devicePreview?.onEnabledToggle?.call(v);
-          },
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: Colors.grey.withValues(alpha: 0.2),
+        highlightColor: Colors.grey.withValues(alpha: 0.2),
+      ),
+      child: Material(
+        child: ListTile(
+          title: const Text(
+            'Settings',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: isEnabled ? showPanel : null,
+          leading: const Icon(Icons.settings),
+          trailing: Switch(
+            value: isEnabled,
+            onChanged: (v) {
+              final state = context.read<DevicePreviewStore>();
+              state.data = state.data.copyWith(isEnabled: v);
+              final devicePreview =
+                  context.findAncestorWidgetOfExactType<DevicePreview>();
+              devicePreview?.onEnabledToggle?.call(v);
+            },
+          ),
         ),
       ),
     );
