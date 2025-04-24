@@ -107,7 +107,7 @@ class DevicePreview extends StatefulWidget {
 
   final void Function(String)? onChangeLanguageToggle;
 
-  final void Function(bool)? onEnabledToggle;
+  final void Function(bool, DevicePreviewStore)? onEnabledToggle;
 
   final EdgeInsetsGeometry? padding;
 
