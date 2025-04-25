@@ -1,5 +1,4 @@
 import 'package:device_preview/device_preview.dart';
-import 'package:device_preview/src/state/store.dart';
 import 'package:device_preview/src/views/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,13 +9,13 @@ import 'tool_panel/tool_panel.dart';
 class DevicePreviewSmallLayout extends StatelessWidget {
   /// Create a new panel from the given tools grouped as [slivers].
   const DevicePreviewSmallLayout({
-    Key? key,
+    super.key,
     required this.maxMenuHeight,
     required this.scaffoldKey,
     required this.onMenuVisibleChanged,
     required this.slivers,
     required this.safeAreaBottomPadding,
-  }) : super(key: key);
+  });
 
   /// The maximum modal menu height.
   final double maxMenuHeight;
@@ -72,19 +71,76 @@ class DevicePreviewSmallLayout extends StatelessWidget {
   }
 }
 
-class _BottomToolbar extends StatelessWidget {
+class _BottomToolbar extends StatefulWidget {
   const _BottomToolbar({
-    Key? key,
     required this.showPanel,
-  }) : super(key: key);
+  });
 
   final VoidCallback showPanel;
+
+  @override
+  State<_BottomToolbar> createState() => _BottomToolbarState();
+}
+
+class _BottomToolbarState extends State<_BottomToolbar>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        seconds: 2,
+      ),
+    );
+
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 1 / 6,
+    )
+        .chain(
+          CurveTween(
+            curve: _ClockTickCurve(),
+          ),
+        )
+        .animate(_controller);
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controller.forward(from: 0.0);
+      }
+    });
+
+    final isEnabled = context.read<DevicePreviewStore>().data.isEnabled;
+    if (isEnabled) {
+      _controller.forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final isEnabled = context.select(
       (DevicePreviewStore store) => store.data.isEnabled,
     );
+
+    if (isEnabled) {
+      if (!_controller.isAnimating) {
+        _controller.forward();
+      }
+    } else {
+      _controller.stop();
+    }
+
     return Theme(
       data: Theme.of(context).copyWith(
         splashColor: Colors.grey.withValues(alpha: 0.2),
@@ -100,8 +156,11 @@ class _BottomToolbar extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onTap: isEnabled ? showPanel : null,
-          leading: const Icon(Icons.settings),
+          onTap: isEnabled ? widget.showPanel : null,
+          leading: RotationTransition(
+            turns: _animation,
+            child: const Icon(Icons.settings, size: 30),
+          ),
           trailing: Switch(
             value: isEnabled,
             onChanged: (v) {
@@ -115,5 +174,16 @@ class _BottomToolbar extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ClockTickCurve extends Curve {
+  @override
+  double transform(double t) {
+    if (t < 0.5) {
+      return t * 2;
+    } else {
+      return 1.0;
+    }
   }
 }
