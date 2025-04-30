@@ -94,7 +94,7 @@ class _BottomToolbarState extends State<_BottomToolbar>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(
-        seconds: 2,
+        seconds: 1,
       ),
     );
 
