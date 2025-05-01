@@ -60,7 +60,16 @@ class _DeviceModelPickerState extends State<DeviceModelPicker>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Device model'),
+        title: Text(
+          'Device model',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        elevation: 2,
         bottom: TabBar(
           controller: controller,
           isScrollable: false,
@@ -203,19 +212,25 @@ class DeviceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(info.name),
-      leading: DeviceTypeIcon(type: info.identifier.type),
-      subtitle: Text(
-        '${info.screenSize.width}x${info.screenSize.height} @${info.pixelRatio}',
-        style: const TextStyle(
-          fontSize: 10,
-        ),
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: Colors.grey.withValues(alpha: 0.2),
+        highlightColor: Colors.grey.withValues(alpha: 0.2),
       ),
-      onTap: () {
-        final state = context.read<DevicePreviewStore>();
-        state.selectDevice(info.identifier);
-      },
+      child: ListTile(
+        title: Text(info.name),
+        leading: DeviceTypeIcon(type: info.identifier.type),
+        subtitle: Text(
+          '${info.screenSize.width}x${info.screenSize.height} @${info.pixelRatio}',
+          style: const TextStyle(
+            fontSize: 10,
+          ),
+        ),
+        onTap: () {
+          final state = context.read<DevicePreviewStore>();
+          state.selectDevice(info.identifier);
+        },
+      ),
     );
   }
 }
