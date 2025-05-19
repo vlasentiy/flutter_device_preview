@@ -2,8 +2,8 @@ import 'locales.dart';
 
 /// A set of many named locales.
 const defaultAvailableLocales = <NamedLocale>[
-  NamedLocale('en', 'English'),
   NamedLocale('uk', 'Ukrainian'),
+  NamedLocale('en', 'English'),
   NamedLocale('de', 'German'),
   NamedLocale('fr', 'French'),
   NamedLocale('es', 'Spanish'),
