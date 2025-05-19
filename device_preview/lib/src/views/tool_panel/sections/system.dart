@@ -58,13 +58,16 @@ class SystemSection extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    ((selectedLocale.code == 'en') ? '🇬🇧' : '🇺🇦'),
+                    _localeToCountryCodeEmoji(selectedLocale.code),
                     style: const TextStyle(fontSize: 36),
-                  )
+                  ),
                 ],
               ),
               onTap: () {
-                final newLocaleCode = selectedLocale.code == 'en' ? 'uk' : 'en';
+                final currentIndex = locales.indexWhere(
+                    (element) => element.code == selectedLocale.code);
+                final nextIndex = (currentIndex + 1) % locales.length;
+                final newLocaleCode = locales[nextIndex].code;
                 final store = context.read<DevicePreviewStore>();
                 store.data = store.data.copyWith(locale: newLocaleCode);
                 final devicePreview =
@@ -93,5 +96,32 @@ class SystemSection extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _localeToCountryCodeEmoji(String localeCode) {
+    // Map locale codes to valid country codes
+    final localeToCountryMap = {
+      'en': '🇬🇧', // English -> United Kingdom
+      'uk': '🇺🇦', // Ukrainian -> Ukraine
+      'de': '🇩🇪', // German -> Germany
+      'fr': '🇫🇷', // French -> France
+      'es': '🇪🇸', // Spanish -> Spain
+      'it': '🇮🇹', // Italian -> Italy
+      'zh': '🇨🇳', // Chinese -> China
+      'ja': '🇯🇵', // Japanese -> Japan
+      'ko': '🇰🇷', // Korean -> South Korea
+      'pt': '🇧🇷', // Portuguese -> Brazil
+      'ar': '🇸🇦', // Arabic -> Saudi Arabia
+      'hi': '🇮🇳', // Hindi -> India
+      'tr': '🇹🇷', // Turkish -> Turkey
+      'nl': '🇳🇱', // Dutch -> Netherlands
+      'pl': '🇵🇱', // Polish -> Poland
+      'sv': '🇸🇪', // Swedish -> Sweden
+      'th': '🇹🇭', // Thai -> Thailand
+      'vi': '🇻🇳', // Vietnamese -> Vietnam
+      'id': '🇮🇩', // Indonesian -> Indonesia
+    };
+
+    return localeToCountryMap[localeCode.toLowerCase()] ?? '🌍';
   }
 }

@@ -1,0 +1,7 @@
+{
+  "@@locale": "de",
+  "tile": "Kachel {number}",
+  "@tile": {
+    "description": "Der Titel einer Listenkachel mit einer Nummer"
+  }
+}
