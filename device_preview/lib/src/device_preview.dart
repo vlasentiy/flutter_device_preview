@@ -140,6 +140,9 @@ class DevicePreview extends StatefulWidget {
     SettingsSection(),
   ];
 
+  //TODO should be not static
+  static double bottomPaddingForDeviceModelList = 0;
+
   @override
   _DevicePreviewState createState() => _DevicePreviewState();
 
@@ -525,6 +528,9 @@ class _DevicePreviewState extends State<DevicePreview> {
         orElse: () => false,
       ),
     );
+
+    DevicePreview.bottomPaddingForDeviceModelList =
+        widget.safeAreaBottomPadding ?? 0;
 
     return Container(
       color: widget.backgroundColor ?? theme.canvasColor,
