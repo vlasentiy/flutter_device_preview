@@ -41,7 +41,7 @@ class Home extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           ...Iterable.generate(
-            100,
+            15,
             (i) => ListTile(
               title: Text(AppLocalizations.of(context)!.tile(i)),
               onTap: () {},
