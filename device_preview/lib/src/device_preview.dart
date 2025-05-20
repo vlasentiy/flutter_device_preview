@@ -486,7 +486,8 @@ class _DevicePreviewState extends State<DevicePreview> {
     return Container(
       color: widget.backgroundColor ?? Theme.of(context).canvasColor,
       child: SafeArea(
-        bottom: false,
+        bottom: !widget.isToolbarVisible,
+        top: false,
         child: MediaQuery(
           data: DevicePreview._mediaQuery(context),
           child: Builder(

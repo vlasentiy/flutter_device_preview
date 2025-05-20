@@ -33,10 +33,12 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
         title: const Text('Basic'),
       ),
       body: ListView(
+        padding: EdgeInsets.zero,
         children: [
           ...Iterable.generate(
             100,
