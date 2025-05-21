@@ -137,7 +137,7 @@ class DevicePreview extends StatefulWidget {
       invertColors: false,
       boldText: false,
     ),
-    SettingsSection(),
+    SettingsSection(backgroundTheme: false),
   ];
 
   //TODO should be not static
