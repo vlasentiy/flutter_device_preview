@@ -486,27 +486,20 @@ class _DevicePreviewState extends State<DevicePreview> {
   }
 
   Widget _buildRawBody(BuildContext context) {
-    return SafeArea(
-      left: false,
-      right: false,
-      top: false,
-      bottom: false,
-      minimum: const EdgeInsets.all(16), //test2
-      child: Container(
-        color: widget.backgroundColor ?? Theme.of(context).canvasColor,
-        child: MediaQuery(
-          data: DevicePreview._mediaQuery(context),
-          child: Builder(
-            key: _appKey,
-            builder: (context) {
-              final app = widget.builder(context);
-              assert(
-                isWidgetsAppUsingInheritedMediaQuery(app),
-                'Your widgets app should have its `useInheritedMediaQuery` property set to `true` in order to use DevicePreview.',
-              );
-              return app;
-            },
-          ),
+    return Container(
+      color: widget.backgroundColor ?? Theme.of(context).canvasColor,
+      child: MediaQuery(
+        data: DevicePreview._mediaQuery(context),
+        child: Builder(
+          key: _appKey,
+          builder: (context) {
+            final app = widget.builder(context);
+            assert(
+              isWidgetsAppUsingInheritedMediaQuery(app),
+              'Your widgets app should have its `useInheritedMediaQuery` property set to `true` in order to use DevicePreview.',
+            );
+            return app;
+          },
         ),
       ),
     );
