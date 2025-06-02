@@ -487,9 +487,11 @@ class _DevicePreviewState extends State<DevicePreview> {
 
   Widget _buildRawBody(BuildContext context) {
     return SafeArea(
-      //test
+      left: false,
+      right: false,
       top: false,
       bottom: false,
+      minimum: const EdgeInsets.all(16), //test2
       child: Container(
         color: widget.backgroundColor ?? Theme.of(context).canvasColor,
         child: MediaQuery(
